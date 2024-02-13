@@ -3,9 +3,16 @@ using UnityEngine;
 public class InputManager : MonoBehaviour
 {
     private PlayerControls playerControls;
+    private AnimatorManager animatorManager;
     public Vector2 movementInput;
     public float verticalInput;
     public float horizontalInput;
+    private float movementAmount;
+
+    private void Awake()
+    {
+        animatorManager = GetComponent<AnimatorManager>();
+    }
 
     private void OnEnable()
     {
@@ -32,5 +39,7 @@ public class InputManager : MonoBehaviour
     {
         verticalInput = movementInput.y;
         horizontalInput = movementInput.x;
+        movementAmount = Mathf.Clamp01(Mathf.Abs(horizontalInput) + Mathf.Abs(verticalInput));
+        animatorManager.ChangeAnimatorValues(0, movementAmount);
     }
 }
