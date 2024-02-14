@@ -506,7 +506,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTransform: {fileID: 0}
-  cameraFollowSpeed: 1
+  cameraPivot: {fileID: 889162423}
+  cameraFollowSpeed: 0.3
+  camLookSpeed: 0.3
+  camPivotSpeed: 0.3
+  lookAngle: 0
+  pivotAngle: 0
 --- !u!33 &19156296378292177
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5915,8 +5920,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   movementInput: {x: 0, y: 0}
+  cameraMovementInput: {x: 0, y: 0}
   verticalInput: 0
   horizontalInput: 0
+  cameraInputX: 0
+  cameraInputY: 0
 --- !u!54 &2548814193946829214
 Rigidbody:
   m_ObjectHideFlags: 0
