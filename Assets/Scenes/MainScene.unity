@@ -5896,10 +5896,10 @@ GameObject:
   - component: {fileID: 2548814193946829213}
   - component: {fileID: 2548814193946829217}
   - component: {fileID: 2548814193946829216}
+  - component: {fileID: 2548814193946829218}
   - component: {fileID: 2548814193946829214}
   - component: {fileID: 2548814193946829215}
   - component: {fileID: 2548814193946829219}
-  - component: {fileID: 2548814193946829218}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -13674,7 +13674,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1938324195}
-  - {fileID: 410087041}
-  - {fileID: 832575519}
   - {fileID: 2543912669011326680}
   - {fileID: 543450653116062728}
+  - {fileID: 410087041}
+  - {fileID: 832575519}

@@ -8,7 +8,7 @@ public class CameraManager : MonoBehaviour
     private Vector3 cameraFollowVelocity = Vector3.zero;
     public float cameraFollowSpeed = 0.3f;
     public float camLookSpeed = 2f; 
-    public float camPivotSpeed = 2f; 
+    public float camPivotSpeed = 2f;
     public float lookAngle;
     public float pivotAngle;
 

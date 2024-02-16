@@ -3,7 +3,7 @@ using UnityEngine;
 public class AnimatorManager : MonoBehaviour
 {
     private Animator animator;
-    private int horizontalValue; 
+    private int horizontalValue;
     private int verticalValue;
 
     private void Awake()
