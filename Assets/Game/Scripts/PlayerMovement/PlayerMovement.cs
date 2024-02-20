@@ -24,7 +24,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
-        moveDirection = cameraGameObject.forward * inputManager.verticalInput;
+        //moveDirection = cameraGameObject.forward * inputManager.verticalInput; // old code
+        moveDirection = new Vector3(cameraGameObject.forward.x, 0f, cameraGameObject.forward.z) * inputManager.verticalInput; // Fix bug: if the camera is above the player's head, the player runs slowly, if the camera is above the player's head, the player runs faster
         moveDirection = moveDirection + cameraGameObject.right * inputManager.horizontalInput;
         moveDirection.Normalize();
         moveDirection.y = 0;
