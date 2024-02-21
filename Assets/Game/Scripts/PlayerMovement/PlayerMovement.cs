@@ -3,9 +3,17 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     private InputManager inputManager;
+    private PlayerManager playerManager;
     private Vector3 moveDirection;
     private Transform cameraGameObject;
     private Rigidbody playerRigidbody;
+
+    [Header("Falling and Landing")]
+    public float inAirTimer;
+    public float leapingVelocity;
+    public float fallingVelocity;
+    public float rayCastHeightOffset = 0.5f;
+    public LayerMask groundLayer;
 
     [Header("Movement flags")]
     public bool isMoving;
@@ -19,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Awake()
     {
+        playerManager = GetComponent<PlayerManager>();
         inputManager = GetComponent<InputManager>();
         playerRigidbody = GetComponent<Rigidbody>();
         cameraGameObject = Camera.main.transform;
@@ -26,6 +35,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void HandleAllMovement()
     {
+        if (playerManager.isInteracting) return;
         HandleMovement();
         HandleRotation();
     }
@@ -73,5 +83,12 @@ public class PlayerMovement : MonoBehaviour
         Quaternion playerRotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
 
         transform.rotation = playerRotation;
+    }
+
+    private void HandleFallingAndLanding()
+    {
+        RaycastHit hit;
+        Vector3 rayCastOrigin = transform.position; // 13:40
+
     }
 }
