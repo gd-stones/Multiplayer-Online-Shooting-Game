@@ -33,7 +33,7 @@ public class CameraManager : MonoBehaviour
         inputManager = FindObjectOfType<InputManager>();
         playerTransform = FindObjectOfType<PlayerManager>().transform;
 
-        cameraTransform = Camera.main.transform;
+        cameraTransform = Camera.main.transform;    
         defaultPosition = cameraTransform.localPosition.z;
     }
 
