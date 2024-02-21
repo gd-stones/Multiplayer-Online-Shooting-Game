@@ -5934,6 +5934,8 @@ MonoBehaviour:
   horizontalInput: 0
   cameraInputX: 0
   cameraInputY: 0
+  movementAmount: 0
+  bInput: 0
 --- !u!54 &2548814193946829214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5996,8 +5998,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ff4b6bc9e705c14cafbf5bf63062ef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementSpeed: 4
+  inAirTimer: 0
+  leapingVelocity: 0
+  fallingVelocity: 0
+  rayCastHeightOffset: 0.5
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  isMoving: 0
+  isSprinting: 0
+  movementSpeed: 2
   rotationSpeed: 13
+  sprintingSpeed: 7
 --- !u!114 &2548814193946829217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6010,6 +6022,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbc5f3a3ac43b74db8968ba6204e029, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInteracting: 0
 --- !u!114 &2548814193946829218
 MonoBehaviour:
   m_ObjectHideFlags: 0
