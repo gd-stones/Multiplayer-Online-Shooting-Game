@@ -5999,14 +5999,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inAirTimer: 0
-  leapingVelocity: 0
-  fallingVelocity: 0
+  leapingVelocity: 0.25
+  fallingVelocity: 25
   rayCastHeightOffset: 0.5
   groundLayer:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 1
   isMoving: 0
   isSprinting: 0
+  isGrounded: 0
   movementSpeed: 2
   rotationSpeed: 13
   sprintingSpeed: 7
