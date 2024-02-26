@@ -1,3 +1,4 @@
+using UnityEditor.Profiling.Memory.Experimental;
 using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
@@ -20,11 +21,16 @@ public class PlayerMovement : MonoBehaviour
     public bool isMoving;
     public bool isSprinting;
     public bool isGrounded;
+    public bool isJumping;
     
     [Header ("Movement values")]
     public float movementSpeed = 2f;
     public float rotationSpeed = 13f;
     public float sprintingSpeed = 7f;
+
+    [Header ("Jump var")]
+    public float jumpHeight = 4f;
+    public float gravityIntensity = -15f;
 
     private void Awake()
     {
@@ -46,6 +52,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleMovement()
     {
+        if (isJumping) return;
+
         //moveDirection = cameraGameObject.forward * inputManager.verticalInput; // old code
         moveDirection = new Vector3(cameraGameObject.forward.x, 0f, cameraGameObject.forward.z) * inputManager.verticalInput; // Fix bug: if the camera is above the player's head, the player runs slowly, if the camera is above the player's head, the player runs faster
         moveDirection = moveDirection + cameraGameObject.right * inputManager.horizontalInput;
@@ -72,6 +80,8 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRotation()
     {
+        if (isJumping) return; 
+
         Vector3 targetDirection = Vector3.zero;
         targetDirection = cameraGameObject.forward * inputManager.verticalInput;
         targetDirection = targetDirection + cameraGameObject.right * inputManager.horizontalInput;
@@ -97,7 +107,7 @@ public class PlayerMovement : MonoBehaviour
         rayCastOrigin.y = rayCastOrigin.y + rayCastHeightOffset;
         targetPosition = transform.position;
 
-        if (!isGrounded /*isJumping*/)
+        if (!isGrounded && !isJumping)
         {
             if (!playerManager.isInteracting)
             {
@@ -125,5 +135,38 @@ public class PlayerMovement : MonoBehaviour
         {
             isGrounded = false;
         }
+
+        if (isGrounded && !isJumping)
+        {
+            if (playerManager.isInteracting || inputManager.movementAmount > 0)
+            {
+                transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime / 0.1f);
+            }
+            else
+            {
+                transform.position = targetPosition;
+            }
+        }
+    }
+
+    public void HandleJumping()
+    {
+        if (isGrounded)
+        {
+            animatorManager.animator.SetBool("isJumping", true);
+            animatorManager.PlayTargetAnim("Jump", false);
+
+            float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
+            Vector3 playerVelocity = moveDirection;
+            playerVelocity.y = jumpingVelocity;
+            playerRigidbody.velocity = playerVelocity;
+
+            isJumping = false;
+        }
+    }
+
+    public void SetIsJumping(bool isJumping)
+    {
+        this.isJumping = isJumping;
     }
 }
