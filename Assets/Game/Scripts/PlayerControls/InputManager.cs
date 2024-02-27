@@ -13,7 +13,7 @@ public class InputManager : MonoBehaviour
     public float cameraInputY;
     public float movementAmount;
 
-    [Header("Input Buttons Flag")]
+    [Header("Input Button Flags")]
     public bool bInput;
     public bool jumpInput;
 
@@ -80,7 +80,7 @@ public class InputManager : MonoBehaviour
         if(jumpInput)
         {
             jumpInput = false;
-            playerMovement.HandleAllMovement(); 
+            playerMovement.HandleJumping(); 
         }
     }
 }
