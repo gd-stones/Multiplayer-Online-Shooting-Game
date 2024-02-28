@@ -5936,6 +5936,7 @@ MonoBehaviour:
   cameraInputY: 0
   movementAmount: 0
   bInput: 0
+  jumpInput: 0
 --- !u!54 &2548814193946829214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6008,9 +6009,12 @@ MonoBehaviour:
   isMoving: 0
   isSprinting: 0
   isGrounded: 0
+  isJumping: 0
   movementSpeed: 2
   rotationSpeed: 13
   sprintingSpeed: 7
+  jumpHeight: 4
+  gravityIntensity: -15
 --- !u!114 &2548814193946829217
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6036,6 +6040,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f47447fca790144eb4a37d0d25366de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animator: {fileID: 0}
 --- !u!95 &2548814193946829219
 Animator:
   serializedVersion: 5
