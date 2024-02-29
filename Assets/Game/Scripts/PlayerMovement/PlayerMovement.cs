@@ -21,13 +21,13 @@ public class PlayerMovement : MonoBehaviour
     public bool isSprinting;
     public bool isGrounded;
     public bool isJumping;
-    
-    [Header ("Movement values")]
+
+    [Header("Movement values")]
     public float movementSpeed = 2f;
     public float rotationSpeed = 13f;
     public float sprintingSpeed = 7f;
 
-    [Header ("Jump var")]
+    [Header("Jump var")]
     public float jumpHeight = 4f;
     public float gravityIntensity = -15f;
 
@@ -63,14 +63,18 @@ public class PlayerMovement : MonoBehaviour
         {
             moveDirection = moveDirection * sprintingSpeed;
         }
-        else if (inputManager.movementAmount >= 0.5f)
+        else
         {
-            moveDirection = moveDirection * movementSpeed;
-            isMoving = true;
-        }
-        else if (inputManager.movementAmount >= 0f)
-        {
-            isMoving = false;
+            if (inputManager.movementAmount >= 0.5f)
+            {
+                moveDirection = moveDirection * movementSpeed;
+                isMoving = true;
+            }
+
+            if (inputManager.movementAmount <= 0f)
+            {
+                isMoving = false;
+            }
         }
 
         Vector3 movementVelocity = moveDirection;
@@ -79,7 +83,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void HandleRotation()
     {
-        if (isJumping) return; 
+        if (isJumping) return;
 
         Vector3 targetDirection = Vector3.zero;
         targetDirection = cameraGameObject.forward * inputManager.verticalInput;
@@ -153,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
         if (isGrounded)
         {
             animatorManager.animator.SetBool("isJumping", true);
-            animatorManager.PlayTargetAnim("Jump", false);  
+            animatorManager.PlayTargetAnim("Jump", false);
 
             float jumpingVelocity = Mathf.Sqrt(-2 * gravityIntensity * jumpHeight);
             Vector3 playerVelocity = moveDirection;
