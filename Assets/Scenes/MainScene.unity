@@ -5902,6 +5902,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2543912669011326680}
+  - component: {fileID: 2548814193946829220}
   - component: {fileID: 2548814193946829213}
   - component: {fileID: 2548814193946829217}
   - component: {fileID: 2548814193946829216}
@@ -5937,6 +5938,9 @@ MonoBehaviour:
   movementAmount: 0
   bInput: 0
   jumpInput: 0
+  fireInput: 0
+  reloadInput: 0
+  scopeInput: 0
 --- !u!54 &2548814193946829214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6062,6 +6066,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &2548814193946829220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2548814193946829212}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d51fb517b654ab438da69cbba093e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2548830152437840694
 GameObject:
   m_ObjectHideFlags: 0

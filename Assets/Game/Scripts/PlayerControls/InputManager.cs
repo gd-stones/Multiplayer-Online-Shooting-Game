@@ -16,6 +16,9 @@ public class InputManager : MonoBehaviour
     [Header("Input Button Flags")]
     public bool bInput;
     public bool jumpInput;
+    public bool fireInput;
+    public bool reloadInput;
+    public bool scopeInput;
 
     private void Awake()
     {
@@ -31,9 +34,15 @@ public class InputManager : MonoBehaviour
 
             playerControls.PlayerMovement.Movement.performed += i => movementInput = i.ReadValue<Vector2>();
             playerControls.PlayerMovement.CameraMovement.performed += i => cameraMovementInput = i.ReadValue<Vector2>();
+            
             playerControls.PlayerActions.B.performed += i => bInput = true;
             playerControls.PlayerActions.B.canceled += i => bInput = false;
             playerControls.PlayerActions.Jump.performed += i => jumpInput = true;
+            playerControls.PlayerActions.Fire.performed += i => fireInput = true;
+            playerControls.PlayerActions.Fire.canceled += i => fireInput = false;
+            playerControls.PlayerActions.Reload.performed += i => reloadInput = true;
+            playerControls.PlayerActions.Scope.performed += i => scopeInput = true;
+            playerControls.PlayerActions.Scope.canceled += i => scopeInput = false;
         }
 
         playerControls.Enable();
