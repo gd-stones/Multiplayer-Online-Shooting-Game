@@ -13,20 +13,35 @@ public class ShootingController : MonoBehaviour
     public float fireDamage = 15f;
     private float nextFireTime = 0f;
 
+    [Header("Reloading")]
+    public int maxAmmo = 30;
+    private int currentAmmo;
+    public float reloadTime = 1.5f;
+
     [Header("Shooting Flags")]
     public bool isShooting;
     public bool isWalking;
     public bool isShootingInput;
+    public bool isReloading = false;
 
     private void Start()
     {
         animator = GetComponent<Animator>();
         inputManager = GetComponent<InputManager>();
         playerMovement = GetComponent<PlayerMovement>();
+        currentAmmo = maxAmmo;
     }
 
     private void Update()
     {
+        if (isReloading || playerMovement.isSprinting)
+        {
+            animator.SetBool("Shoot", false);
+            animator.SetBool("ShootingMovement", false);
+            animator.SetBool("ShootWalk", false);
+            return;
+        }
+
         isWalking = playerMovement.isMoving;
         isShootingInput = inputManager.fireInput;
 
@@ -63,19 +78,64 @@ public class ShootingController : MonoBehaviour
             animator.SetBool("ShootWalk", false);
             isShooting = false;
         }
+
+        if (inputManager.reloadInput && currentAmmo < maxAmmo)
+        {
+            Reload(); 
+        }
     }
 
     private void Shoot()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, fireRange))
+        if (currentAmmo > 0)
         {
-            Debug.Log(hit.transform.name);
+            RaycastHit hit;
+            if (Physics.Raycast(firePoint.position, firePoint.forward, out hit, fireRange))
+            {
+                Debug.Log(hit.transform.name);
 
-            // extract information from hit
-            // apply damage to target
+                // extract information from hit
+                // apply damage to target
+            }
+
+            // play muzzle flash
+            // play sound
+            currentAmmo--;
         }
-        // play muzzle flash
-        // play sound
+        else Reload();
+    }
+
+    private void Reload()
+    {
+        if (!isReloading && currentAmmo < maxAmmo)
+        {
+            if (isShootingInput && isWalking)
+            {
+                animator.SetTrigger("ShootReload");
+            }
+            else
+            {
+                animator.SetTrigger("Reload");
+            }
+
+            isReloading = true;
+            // play reload sound
+            Invoke("FinishReloading", reloadTime);
+        }
+    }
+
+    private void FinishReloading()
+    {
+        currentAmmo = maxAmmo;
+        isReloading = false;
+
+        if (isShootingInput && isWalking)
+        {
+            animator.ResetTrigger("ShootReload");
+        }
+        else
+        {
+            animator.ResetTrigger("Reload");
+        }
     }
 }
