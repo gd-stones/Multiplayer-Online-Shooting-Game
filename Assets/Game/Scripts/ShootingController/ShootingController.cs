@@ -24,6 +24,11 @@ public class ShootingController : MonoBehaviour
     public bool isShootingInput;
     public bool isReloading = false;
 
+    [Header("Sound Effects")]
+    public AudioSource soundAudioSource;
+    public AudioClip shootingSoundClip;
+    public AudioClip reloadingSoundClip;
+
     private void Start()
     {
         animator = GetComponent<Animator>();
@@ -99,7 +104,7 @@ public class ShootingController : MonoBehaviour
             }
 
             // play muzzle flash
-            // play sound
+            soundAudioSource.PlayOneShot(shootingSoundClip);
             currentAmmo--;
         }
         else Reload();
@@ -119,7 +124,7 @@ public class ShootingController : MonoBehaviour
             }
 
             isReloading = true;
-            // play reload sound
+            soundAudioSource.PlayOneShot(reloadingSoundClip);
             Invoke("FinishReloading", reloadTime);
         }
     }
