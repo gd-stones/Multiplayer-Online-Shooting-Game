@@ -157,10 +157,10 @@ RectTransform:
   - {fileID: 542324273}
   m_Father: {fileID: 1320496732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 600, y: -850}
+  m_SizeDelta: {x: 1200, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &16694594
 MonoBehaviour:
@@ -339,7 +339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &163248618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -373,6 +373,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: LoadingMenu
+  isOpen: 1
 --- !u!1 &273223619
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +837,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 242e466d167b50646b5fb389c0071ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  menus: []
+  menus:
+  - {fileID: 163248619}
+  - {fileID: 1631337741}
 --- !u!1 &519684643
 GameObject:
   m_ObjectHideFlags: 0
@@ -871,10 +874,10 @@ RectTransform:
   - {fileID: 44439977}
   m_Father: {fileID: 1320496732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 600, y: -150}
+  m_SizeDelta: {x: 1200, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &519684645
 MonoBehaviour:
@@ -1071,10 +1074,10 @@ RectTransform:
   - {fileID: 273223620}
   m_Father: {fileID: 1320496732}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 300}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 600, y: -500}
+  m_SizeDelta: {x: 1200, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &649464974
 MonoBehaviour:
@@ -1328,7 +1331,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1631337740
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1362,6 +1365,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   menuName: TitleMenu
+  isOpen: 0
 --- !u!1 &2010141522
 GameObject:
   m_ObjectHideFlags: 0
