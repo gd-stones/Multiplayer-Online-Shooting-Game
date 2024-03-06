@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 16694595}
   - component: {fileID: 16694594}
   m_Layer: 5
-  m_Name: Quit Game
+  m_Name: QuitGameButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -418,7 +418,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &163248618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1248,6 +1248,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b686692c10d09d449a8b4509305ae2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  roomNameInputField: {fileID: 1229485866}
+  roomNameText: {fileID: 1314844546}
+  errorText: {fileID: 1652936208}
 --- !u!114 &510141763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1263,6 +1266,9 @@ MonoBehaviour:
   menus:
   - {fileID: 163248619}
   - {fileID: 1631337741}
+  - {fileID: 402058722}
+  - {fileID: 459054382}
+  - {fileID: 1810274123}
 --- !u!1 &519684643
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,7 +1561,7 @@ GameObject:
   - component: {fileID: 649464975}
   - component: {fileID: 649464974}
   m_Layer: 5
-  m_Name: CreateRoom
+  m_Name: CreateRoomButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1624,7 +1630,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 649464975}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510141763}
+        m_TargetAssemblyTypeName: MenuManager, Assembly-CSharp
+        m_MethodName: OpenMenu
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 402058722}
+          m_ObjectArgumentAssemblyTypeName: Menu, Assembly-CSharp
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &649464975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2491,7 +2509,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1809094790}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510141762}
+        m_TargetAssemblyTypeName: Launcher, Assembly-CSharp
+        m_MethodName: CreateRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1809094790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2743,7 +2773,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2054546526}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510141762}
+        m_TargetAssemblyTypeName: Launcher, Assembly-CSharp
+        m_MethodName: LeaveRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2054546526
 MonoBehaviour:
   m_ObjectHideFlags: 0
