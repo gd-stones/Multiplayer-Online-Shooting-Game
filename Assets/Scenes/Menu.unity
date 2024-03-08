@@ -1393,6 +1393,7 @@ MonoBehaviour:
   playerListContent: {fileID: 1849082618}
   playerListItemPrefab: {fileID: 3066452780081999873, guid: b100b232c968920409ac125a3f689bf7,
     type: 3}
+  startButton: {fileID: 1137597268}
 --- !u!114 &510141763
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2130,7 +2131,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1137597271}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 510141762}
+        m_TargetAssemblyTypeName: Launcher, Assembly-CSharp
+        m_MethodName: StartGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1137597271
 MonoBehaviour:
   m_ObjectHideFlags: 0
