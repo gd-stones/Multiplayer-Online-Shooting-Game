@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class PlayerManager : MonoBehaviour
@@ -6,33 +7,48 @@ public class PlayerManager : MonoBehaviour
     private PlayerMovement playerMovement;
     private CameraManager cameraManager;
     private Animator animator;
-
     public bool isInteracting;
+
+    private PhotonView view;
 
     private void Awake()
     {
+        view = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
         inputManager = GetComponent<InputManager>();
         playerMovement = GetComponent<PlayerMovement>();
         cameraManager = FindObjectOfType<CameraManager>();
     }
 
+    private void Start()
+    {
+        if (!view.IsMine)
+        {
+            Destroy(GetComponentInChildren<CameraManager>().gameObject);
+        }
+    }
+
     private void Update()
     {
-        inputManager.HandleAllInputs();
+        if (view.IsMine)
+            inputManager.HandleAllInputs();
     }
 
     private void FixedUpdate()
     {
-        playerMovement.HandleAllMovement();
+        if (view.IsMine)
+            playerMovement.HandleAllMovement();
     }
 
     private void LateUpdate()
     {
-        cameraManager.HandleAllCameraMovement();
-        
-        isInteracting = animator.GetBool("isInteracting");
-        playerMovement.isJumping = animator.GetBool("isJumping");
-        animator.SetBool("isGrounded", playerMovement.isGrounded);
+        if (view.IsMine)
+        {
+            cameraManager.HandleAllCameraMovement();
+
+            isInteracting = animator.GetBool("isInteracting");
+            playerMovement.isJumping = animator.GetBool("isJumping");
+            animator.SetBool("isGrounded", playerMovement.isGrounded);
+        }
     }
 }
