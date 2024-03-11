@@ -1,4 +1,6 @@
 using UnityEngine;
+using Photon.Pun;
+using Unity.XR.OpenVR;
 
 public class ShootingController : MonoBehaviour
 {
@@ -29,8 +31,11 @@ public class ShootingController : MonoBehaviour
     public AudioClip shootingSoundClip;
     public AudioClip reloadingSoundClip;
 
+    private PhotonView view;
+
     private void Start()
     {
+        view = GetComponent<PhotonView>();
         animator = GetComponent<Animator>();
         inputManager = GetComponent<InputManager>();
         playerMovement = GetComponent<PlayerMovement>();
@@ -39,6 +44,9 @@ public class ShootingController : MonoBehaviour
 
     private void Update()
     {
+        if (!view.IsMine) 
+            return; 
+        
         if (isReloading || playerMovement.isSprinting)
         {
             animator.SetBool("Shoot", false);
