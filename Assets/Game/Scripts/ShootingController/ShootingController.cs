@@ -1,6 +1,5 @@
 using UnityEngine;
 using Photon.Pun;
-using Unity.XR.OpenVR;
 
 public class ShootingController : MonoBehaviour
 {
@@ -108,7 +107,15 @@ public class ShootingController : MonoBehaviour
                 Debug.Log(hit.transform.name);
 
                 // extract information from hit
+                Vector3 hitPoint = hit.point;
+                Vector3 hiNormal = hit.normal;
+
                 // apply damage to target
+                PlayerMovement playerMovementDamage = hit.collider.GetComponent<PlayerMovement>();
+                if (playerMovementDamage != null)
+                {
+                    playerMovementDamage.ApplyDamage(fireDamage);
+                }
             }
 
             // play muzzle flash

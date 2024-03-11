@@ -1,9 +1,16 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
+    [Header("Player Heatlth")]
+    private const float maxHealth = 150f;
+    private float currentHealth;
+
+    [Header("Refs & Physics")]
     private InputManager inputManager;
     private PlayerManager playerManager;
+    private PlayerControllerManager playerControllerManager;
     private AnimatorManager animatorManager;
     private Vector3 moveDirection;
     private Transform cameraGameObject;
@@ -31,13 +38,19 @@ public class PlayerMovement : MonoBehaviour
     public float jumpHeight = 4f;
     public float gravityIntensity = -15f;
 
+    private PhotonView view;
+
     private void Awake()
     {
+        currentHealth = maxHealth;
         playerManager = GetComponent<PlayerManager>();
         inputManager = GetComponent<InputManager>();
         animatorManager = GetComponent<AnimatorManager>();
         playerRigidbody = GetComponent<Rigidbody>();
         cameraGameObject = Camera.main.transform;
+        view = GetComponent<PhotonView>();
+
+        playerControllerManager = PhotonView.Find((int) view.InstantiationData[0]).GetComponent<PlayerControllerManager>();
     }
 
     public void HandleAllMovement()
@@ -171,5 +184,31 @@ public class PlayerMovement : MonoBehaviour
     public void SetIsJumping(bool isJumping)
     {
         this.isJumping = isJumping;
+    }
+
+    public void ApplyDamage(float damageValue)
+    {
+        view.RPC("RPC_TakeDamage", RpcTarget.All, damageValue);
+    }
+
+    [PunRPC]
+    private void RPC_TakeDamage(float damage)
+    {
+        if (view.IsMine)
+        {
+            currentHealth -= damage;
+            if (currentHealth <= 0)
+            {
+                Die();
+            }
+
+            Debug.Log("Damage taken: " + damage);
+            Debug.Log("Current health: " + currentHealth);
+        }
+    }
+
+    private void Die()
+    {
+        playerControllerManager.Die();
     }
 }

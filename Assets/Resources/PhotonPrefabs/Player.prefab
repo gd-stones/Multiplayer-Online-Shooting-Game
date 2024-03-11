@@ -1960,11 +1960,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firePoint: {fileID: 6235567485000341575}
-  fireRate: 9
-  fireRange: 100
+  fireRate: 8
+  fireRange: 200
   fireDamage: 15
   maxAmmo: 30
-  reloadTime: 1
+  reloadTime: 1.5
   isShooting: 0
   isWalking: 0
   isShootingInput: 0
