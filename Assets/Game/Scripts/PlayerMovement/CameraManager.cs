@@ -25,15 +25,18 @@ public class CameraManager : MonoBehaviour
     public float cameraCollisionRadius = 0.2f;
     private Vector3 cameraVectorPosition;
 
+    private PlayerMovement playerMovement;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         inputManager = FindObjectOfType<InputManager>();
+        playerMovement = FindObjectOfType<PlayerMovement>();
         playerTransform = FindObjectOfType<PlayerManager>().transform;
 
-        cameraTransform = Camera.main.transform;    
+        cameraTransform = Camera.main.transform;
         defaultPosition = cameraTransform.localPosition.z;
     }
 
@@ -68,6 +71,11 @@ public class CameraManager : MonoBehaviour
         rotation.x = pivotAngle;
         targetRotation = Quaternion.Euler(rotation);
         cameraPivot.localRotation = targetRotation;
+
+        if (playerMovement.isMoving == false && playerMovement.isSprinting == false)
+        {
+            playerTransform.rotation = Quaternion.Euler(0, lookAngle, 0);
+        }
     }
 
     void CameraCollision()
