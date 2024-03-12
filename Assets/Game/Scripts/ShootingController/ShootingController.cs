@@ -30,6 +30,10 @@ public class ShootingController : MonoBehaviour
     public AudioClip shootingSoundClip;
     public AudioClip reloadingSoundClip;
 
+    [Header("Effects")]
+    public ParticleSystem muzzleFlash;
+    public ParticleSystem bloodEffect;
+
     private PhotonView view;
 
     private void Start()
@@ -43,9 +47,9 @@ public class ShootingController : MonoBehaviour
 
     private void Update()
     {
-        if (!view.IsMine) 
-            return; 
-        
+        if (!view.IsMine)
+            return;
+
         if (isReloading || playerMovement.isSprinting)
         {
             animator.SetBool("Shoot", false);
@@ -93,7 +97,7 @@ public class ShootingController : MonoBehaviour
 
         if (inputManager.reloadInput && currentAmmo < maxAmmo)
         {
-            Reload(); 
+            Reload();
         }
     }
 
@@ -108,21 +112,34 @@ public class ShootingController : MonoBehaviour
 
                 // extract information from hit
                 Vector3 hitPoint = hit.point;
-                Vector3 hiNormal = hit.normal;
+                Vector3 hitNormal = hit.normal;
 
                 // apply damage to target
                 PlayerMovement playerMovementDamage = hit.collider.GetComponent<PlayerMovement>();
                 if (playerMovementDamage != null)
                 {
                     playerMovementDamage.ApplyDamage(fireDamage);
+                    view.RPC("RPC_Shoot", RpcTarget.All, hitPoint, hitNormal);
                 }
             }
 
-            // play muzzle flash
+            muzzleFlash.Play();
             soundAudioSource.PlayOneShot(shootingSoundClip);
             currentAmmo--;
         }
-        else Reload();
+        else
+            Reload();
+    }
+
+    [PunRPC]
+    private void RPC_Shoot(Vector3 hitPoint, Vector3 hitNormal)
+    {
+        ParticleSystem blood = Instantiate(bloodEffect, hitPoint, Quaternion.LookRotation(hitNormal));
+        if (blood != null)
+        {
+            Debug.Log("blood effectrrrrrrrrr");
+        }
+        Destroy(blood.gameObject, blood.main.duration);
     }
 
     private void Reload()
