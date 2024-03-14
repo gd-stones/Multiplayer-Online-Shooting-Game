@@ -1,11 +1,15 @@
 using UnityEngine;
 using Photon.Pun;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Player Heatlth")]
     private const float maxHealth = 150f;
     private float currentHealth;
+
+    public Slider healthBarSlider;
+    public GameObject playerUI;
 
     [Header("Refs & Physics")]
     private InputManager inputManager;
@@ -50,7 +54,20 @@ public class PlayerMovement : MonoBehaviour
         cameraGameObject = Camera.main.transform;
         view = GetComponent<PhotonView>();
 
-        playerControllerManager = PhotonView.Find((int) view.InstantiationData[0]).GetComponent<PlayerControllerManager>();
+        playerControllerManager = PhotonView.Find((int)view.InstantiationData[0]).GetComponent<PlayerControllerManager>();
+
+        healthBarSlider.maxValue = maxHealth;
+        healthBarSlider.minValue = 0;
+        healthBarSlider.value = currentHealth;
+    }
+
+    private void Start()
+    {
+        if (!view.IsMine)
+        {
+            Destroy(playerRigidbody);
+            Destroy(playerUI);
+        }
     }
 
     public void HandleAllMovement()
@@ -197,6 +214,7 @@ public class PlayerMovement : MonoBehaviour
         if (view.IsMine)
         {
             currentHealth -= damage;
+            healthBarSlider.value = currentHealth;
             if (currentHealth <= 0)
             {
                 Die();
