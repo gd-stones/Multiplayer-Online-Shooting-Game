@@ -17,6 +17,8 @@ public class Launcher : MonoBehaviourPunCallbacks
     [SerializeField] private GameObject playerListItemPrefab;
     public GameObject startButton;
 
+    private int nextTeamNumber = 1; 
+
     private void Awake()
     {
         Instance = this;
@@ -39,7 +41,6 @@ public class Launcher : MonoBehaviourPunCallbacks
     {
         MenuManager.Instance.OpenMenu("UserNameMenu");
         Debug.Log("joined lobby");
-        //PhotonNetwork.NickName = "Stones " + Random.Range(0, 10).ToString();
     }
 
     public void CreateRoom()
@@ -64,7 +65,8 @@ public class Launcher : MonoBehaviourPunCallbacks
 
         for (int i = 0; i < players.Count(); i++)
         {
-            Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i]);
+            int teamNumber = GetNextTeamNumber();
+            Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(players[i], teamNumber);
         }
 
         startButton.SetActive(PhotonNetwork.IsMasterClient);
@@ -123,6 +125,15 @@ public class Launcher : MonoBehaviourPunCallbacks
 
     public override void OnPlayerEnteredRoom(Player newPlayer)
     {
-        Instantiate(playerListItemPrefab, playerListContent).GetComponent<PlayerListItem>().SetUp(newPlayer);
+        int teamNumber = GetNextTeamNumber();
+        GameObject playerItem =  Instantiate(playerListItemPrefab, playerListContent);
+        playerItem.GetComponent<PlayerListItem>().SetUp(newPlayer, teamNumber);
+    }
+
+    private int GetNextTeamNumber()
+    {
+        int teamNumber = nextTeamNumber;
+        nextTeamNumber = 3 - nextTeamNumber;
+        return teamNumber;
     }
 }
