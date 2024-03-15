@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
 
     private PhotonView view;
 
+    public int playerTeam;
+
     private void Awake()
     {
         currentHealth = maxHealth;
@@ -67,6 +69,12 @@ public class PlayerMovement : MonoBehaviour
         {
             Destroy(playerRigidbody);
             Destroy(playerUI);
+        }
+
+        if (view.Owner.CustomProperties.ContainsKey("Team"))
+        {
+            int team = (int)view.Owner.CustomProperties["Team"];
+            playerTeam = team;
         }
     }
 
@@ -228,5 +236,6 @@ public class PlayerMovement : MonoBehaviour
     private void Die()
     {
         playerControllerManager.Die();
+        ScoreBoard.Instance.PlayerDied(playerTeam);
     }
 }

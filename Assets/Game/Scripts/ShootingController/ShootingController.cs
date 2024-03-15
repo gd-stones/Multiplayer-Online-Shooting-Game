@@ -36,6 +36,8 @@ public class ShootingController : MonoBehaviour
 
     private PhotonView view;
 
+    public int playerTeam;
+
     private void Start()
     {
         view = GetComponent<PhotonView>();
@@ -43,6 +45,12 @@ public class ShootingController : MonoBehaviour
         inputManager = GetComponent<InputManager>();
         playerMovement = GetComponent<PlayerMovement>();
         currentAmmo = maxAmmo;
+
+        if (view.Owner.CustomProperties.ContainsKey("Team"))
+        {
+            int team = (int)view.Owner.CustomProperties["Team"];
+            playerTeam = team;
+        }
     }
 
     private void Update()
@@ -116,7 +124,7 @@ public class ShootingController : MonoBehaviour
 
                 // apply damage to target
                 PlayerMovement playerMovementDamage = hit.collider.GetComponent<PlayerMovement>();
-                if (playerMovementDamage != null)
+                if (playerMovementDamage != null && playerTeam != playerMovementDamage.playerTeam)
                 {
                     playerMovementDamage.ApplyDamage(fireDamage);
                     view.RPC("RPC_Shoot", RpcTarget.All, hitPoint, hitNormal);
