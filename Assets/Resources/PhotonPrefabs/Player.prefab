@@ -2322,6 +2322,7 @@ MonoBehaviour:
   muzzleFlash: {fileID: 6155560294811557293}
   bloodEffect: {fileID: 3548588485384254794, guid: 2f9e7dc163581394da1e00b561eed65d,
     type: 3}
+  playerTeam: 0
 --- !u!114 &4792343948727827555
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2352,6 +2353,7 @@ MonoBehaviour:
   sprintingSpeed: 7
   jumpHeight: 4
   gravityIntensity: -15
+  playerTeam: 0
 --- !u!114 &1688809219674920613
 MonoBehaviour:
   m_ObjectHideFlags: 0
