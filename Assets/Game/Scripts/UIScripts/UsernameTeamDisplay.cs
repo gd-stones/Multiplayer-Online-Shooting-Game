@@ -6,7 +6,8 @@ using Photon.Pun;
 public class UsernameTeamDisplay : MonoBehaviour
 {
     public Text usernameText;
-    public PhotonView view; 
+    public Text teamText;
+    public PhotonView view;
 
     private void Start()
     {
@@ -15,7 +16,13 @@ public class UsernameTeamDisplay : MonoBehaviour
             // dont want to display username
             gameObject.SetActive(false);
         }
-        
+
         usernameText.text = view.Owner.NickName;
+
+        if (view.Owner.CustomProperties.ContainsKey("Team"))
+        {
+            int team = (int)view.Owner.CustomProperties["Team"];
+            teamText.text = "Team " + team;
+        }
     }
 }
