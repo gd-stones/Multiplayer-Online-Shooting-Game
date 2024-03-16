@@ -24,6 +24,7 @@ public class ShootingController : MonoBehaviour
     public bool isWalking;
     public bool isShootingInput;
     public bool isReloading = false;
+    public bool isScopeInput;
 
     [Header("Sound Effects")]
     public AudioSource soundAudioSource;
@@ -68,6 +69,7 @@ public class ShootingController : MonoBehaviour
 
         isWalking = playerMovement.isMoving;
         isShootingInput = inputManager.fireInput;
+        isScopeInput = inputManager.scopeInput;
 
         if (isShootingInput && isWalking)
         {
@@ -94,6 +96,13 @@ public class ShootingController : MonoBehaviour
             animator.SetBool("Shoot", true);
             animator.SetBool("ShootingMovement", false);
             isShooting = true;
+        }
+        else if (isScopeInput)
+        {
+            animator.SetBool("ShootWalk", false);
+            animator.SetBool("Shoot", false);
+            animator.SetBool("ShootingMovement", true);
+            isShooting = false;
         }
         else
         {

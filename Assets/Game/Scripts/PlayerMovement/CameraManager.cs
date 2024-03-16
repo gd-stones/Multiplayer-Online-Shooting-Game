@@ -27,6 +27,13 @@ public class CameraManager : MonoBehaviour
 
     private PlayerMovement playerMovement;
 
+    [Header("Scope")]
+    public GameObject scopeCanvas;
+    public GameObject playerUI;
+    public Camera mainCamera;
+    private bool isScoped = false;
+    private float originalFOV = 60f;
+
     private void Awake()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -45,6 +52,7 @@ public class CameraManager : MonoBehaviour
         FollowTarget();
         RotateCamera();
         CameraCollision();
+        IsPlayerScoped();
     }
 
     private void FollowTarget()
@@ -98,5 +106,21 @@ public class CameraManager : MonoBehaviour
 
         cameraVectorPosition.z = Mathf.Lerp(cameraTransform.localPosition.z, targetPosition, 0.2f);
         cameraTransform.localPosition = cameraVectorPosition;
+    }
+
+    public void IsPlayerScoped()
+    {
+        if (inputManager.scopeInput)
+        {
+            scopeCanvas.SetActive(true);
+            playerUI.SetActive(false);
+            mainCamera.fieldOfView = 15f;
+        }
+        else
+        {
+            scopeCanvas.SetActive(false);
+            playerUI.SetActive(true);
+            mainCamera.fieldOfView = originalFOV;
+        }
     }
 }
